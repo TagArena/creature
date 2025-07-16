@@ -8,9 +8,7 @@ import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import jakarta.validation.constraints.NotNull;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -35,5 +33,37 @@ public class CreatureResource {
         log.info("getStarterCreatures finished with starterCreatures={}", starterCreatures);
 
         return starterCreatures;
+    }
+
+    // @formatter:off
+    @Operation(summary = "Retrieves the creatures for the given parameters", description = "Retrieves the creatures for the given parameters")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Creatures retrieved successfully")
+    })
+    @GetMapping("/creatures")
+    // @formatter:on
+    List<CreatureDto> getCreatures(@RequestParam Long trainerId, @RequestParam(required = false) Boolean active) {
+
+        log.info("getCreatures called with trainerId={}, active={}", trainerId, active);
+        List<CreatureDto> creatures = creatureService.getCreatures(trainerId, active);
+        log.info("getCreatures finished with creatures={}", creatures);
+
+        return creatures;
+    }
+
+    // @formatter:off
+    @Operation(summary = "Creates a creature with the given parameters", description = "Creates a creature with the given parameters")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Creature created successfully")
+    })
+    @PostMapping("/creatures")
+    // @formatter:on
+    CreatureDto createCreature(@NotNull @RequestBody CreatureDto creature) {
+
+        log.info("createCreature called with creature={}", creature);
+        CreatureDto createdCreature = creatureService.createCreature(creature);
+        log.info("getStarterCreatures finished with createdCreature={}", createdCreature);
+
+        return createdCreature;
     }
 }

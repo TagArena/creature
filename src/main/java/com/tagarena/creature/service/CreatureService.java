@@ -7,4 +7,8 @@ import java.util.List;
 public interface CreatureService {
 
     List<CreatureDto> getStarterCreatures(Long trainerId);
+
+    CreatureDto createCreature(CreatureDto creature);
+
+    List<CreatureDto> getCreatures(Long trainerId, Boolean active);
 }
