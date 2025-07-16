@@ -21,4 +21,6 @@ public class CreatureDto {
 
     private Long level;
 
+    private Long trainerId;
+
 }

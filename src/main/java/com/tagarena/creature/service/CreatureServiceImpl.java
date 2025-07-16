@@ -28,7 +28,7 @@ public class CreatureServiceImpl implements CreatureService {
                 continue;
             }
             CreatureSpeciesEntity creatureTemplateEntity = starterCreatureTemplateOptional.get();
-            CreatureDto starterCreatureDto = createCreatureDtoFromTemplate(creatureTemplateEntity, 1L);
+            CreatureDto starterCreatureDto = createCreatureDtoFromTemplate(creatureTemplateEntity, trainerId, 1L);
             starterCreatures.add(starterCreatureDto);
         }
 
@@ -49,13 +49,14 @@ public class CreatureServiceImpl implements CreatureService {
         return true;
     }
 
-    private CreatureDto createCreatureDtoFromTemplate(CreatureSpeciesEntity creatureTemplateEntity, Long level) {
+    private CreatureDto createCreatureDtoFromTemplate(CreatureSpeciesEntity creatureTemplateEntity, Long trainerid, Long level) {
         CreatureDto creatureDto = new CreatureDto();
         creatureDto.setName(creatureTemplateEntity.getName());
         creatureDto.setSpecies(creatureTemplateEntity.getName());
         List<String> creatureTypes = creatureTemplateEntity.getCreatureElements().stream().map(CreatureElement::getId).toList();
         creatureDto.setElements(creatureTypes);
         creatureDto.setLevel(level);
+        creatureDto.setTrainerId(trainerid);
         return creatureDto;
     }
 }
