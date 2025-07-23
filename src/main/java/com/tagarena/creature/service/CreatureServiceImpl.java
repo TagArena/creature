@@ -75,7 +75,7 @@ public class CreatureServiceImpl implements CreatureService {
     public CreatureEntity getCreature(Long creatureId) {
         Optional<CreatureEntity> creatureEntityOptional = creatureEntityRepository.findById(creatureId);
         if (creatureEntityOptional.isEmpty()) {
-            throw new CreatureNotFoundException();
+            throw new CreatureNotFoundException("Creature with id " + creatureId + " could not be found");
         }
         return creatureEntityOptional.get();
     }

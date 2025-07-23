@@ -1,12 +1,9 @@
 package com.tagarena.creature.service;
 
-import java.util.List;
-
-import com.tagarena.creature.rest.model.CreatureDto;
+import com.tagarena.creature.rest.model.CreatureTrainingCreationDto;
+import com.tagarena.creature.rest.model.CreatureTrainingDto;
 
 public interface TrainingService {
 
-    List<CreatureTraining> getNextTrainings(Long creatureId);
-
-    CreatureTraining createCreatureTraining(Long creatureId, CreatureTrainingCreation training);
+    CreatureTrainingDto createCreatureTraining(Long creatureId, CreatureTrainingCreationDto training);
 }
