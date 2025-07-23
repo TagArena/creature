@@ -30,4 +30,7 @@ public class CreatureEntity {
     @Column(name = "active", nullable = false)
     private Boolean active = false;
 
+    @Column(name = "xp", nullable = false)
+    private Long xp;
+
 }
