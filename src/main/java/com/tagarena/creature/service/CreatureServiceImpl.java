@@ -6,6 +6,7 @@ import com.tagarena.creature.repository.model.CreatureElement;
 import com.tagarena.creature.repository.model.CreatureEntity;
 import com.tagarena.creature.repository.model.CreatureSpeciesEntity;
 import com.tagarena.creature.rest.model.CreatureDto;
+import com.tagarena.creature.service.model.exception.CreatureNotFoundException;
 import com.tagarena.creature.service.model.exception.CreatureSpeciesNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
@@ -69,6 +70,14 @@ public class CreatureServiceImpl implements CreatureService {
             foundCreatures = creatureEntityRepository.findByTrainerid(trainerId);
         }
         return foundCreatures.stream().map(this::convertToCreatureDto).toList();
+    }
+
+    public CreatureEntity getCreature(Long creatureId) {
+        Optional<CreatureEntity> creatureEntityOptional = creatureEntityRepository.findById(creatureId);
+        if (creatureEntityOptional.isEmpty()) {
+            throw new CreatureNotFoundException();
+        }
+        return creatureEntityOptional.get();
     }
 
     private CreatureDto convertToCreatureDto(CreatureEntity creatureEntity) {
